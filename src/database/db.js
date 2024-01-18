@@ -1,33 +1,33 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import { promisify } from "util"
 
 dotenv.config();
 
 const pool = mysql.createPool(process.env.DB_URI);
+pool.query = promisify(pool.query)
 
 async function conectDatabase() {
     try {
-        const conection = await pool.getConnection();
-        await conection.ping();
-        conection.release();
-        console.log('Conectado ao banco de dados! 🚀🎉');
+        const connection = await pool.getConnection();
+        await connection.ping();
+        connection.release();
         return true;
     }
     catch (err) {
-        console.error('Falha ao conectar ao banco de dados ;(', err.message);
+        if (err.code === "PROTOCOL_CONNECTION_LOST") {
+            console.error('A conexão com o banco de dados foi perdida.');
+        }
+        else if (err.code === 'ER_CON_COUNT_err') {
+            console.error('O banco de dados tem muitas conexões.');
+        } else if (err.code === 'ECONNREFUSED') {
+            console.error('A conexão com o banco de dados foi recusada.');
+        } else {
+            console.error('Erro ao conectar no banco de dados:', err.message);
+        }
         throw err;
     }
 }
 
-async function execute(query, params = []) {
-    try {
-        const rows = await pool.query(query, params)
-        return [rows];
-    }
-    catch (err) {
-        console.error('Falha ao conectar ao banco de dados! ❌', err.message);
-        throw err;
-    }
-}
-
-export { conectDatabase, pool, execute };
+export default pool;
+export { conectDatabase }
