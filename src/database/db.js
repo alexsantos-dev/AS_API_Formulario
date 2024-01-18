@@ -1,11 +1,9 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-import { promisify } from "util"
 
 dotenv.config();
 
 const pool = mysql.createPool(process.env.DB_URI);
-pool.query = promisify(pool.query)
 
 async function conectDatabase() {
     try {

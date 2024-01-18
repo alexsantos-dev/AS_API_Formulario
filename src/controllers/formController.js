@@ -30,8 +30,8 @@ async function getFormById(req, res) {
 
 async function createForm(req, res) {
     try {
-        const { newFormCampos } = req.body;
-        await FormModel.createForm(newFormCampos);
+        const { nome, email, telefone, nascimento, sexo } = req.body;
+        await FormModel.createForm(nome, email, telefone, nascimento, sexo);
         res.send("Formulario criado com sucesso!");
     }
     catch (err) {
@@ -43,8 +43,8 @@ async function createForm(req, res) {
 async function updateForm(req, res) {
     try {
         const { id } = req.params
-        const { formCampos } = req.body;
-        await FormModel.updateForm(id, formCampos);
+        const { nome, email, telefone, nascimento, sexo } = req.body;
+        await FormModel.updateForm(nome, email, telefone, nascimento, sexo, id);
         res.send("Formulario atualizado!");
     }
     catch (err) {
