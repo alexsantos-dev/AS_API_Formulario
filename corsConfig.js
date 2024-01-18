@@ -8,11 +8,8 @@ const configureCors = (app) => {
         optionsSuccessStatus: 204,
         allowedHeaders: 'Content-Type, Authorization',
     };
-
     app.use(cors(corsOptions));
-
     app.use((req, res, next) => {
-        // Adicione a lógica adicional aqui
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
