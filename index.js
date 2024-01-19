@@ -4,14 +4,16 @@ import FormRoutes from "./src/routes/formRoutes.js";
 import dotenv from "dotenv";
 import configureCors from "./corsConfig.js";
 
-const app = express();
 dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000
+
 conectDatabase();
-configureCors(app)
 app.use(express.json());
 app.use("/api", FormRoutes);
+configureCors(app)
 
-const PORT = process.env.PORT || 3000
 
 async function api() {
     const accessUrl = async () => {
