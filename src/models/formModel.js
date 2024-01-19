@@ -10,8 +10,8 @@ async function getFormById(id) {
     return data;
 }
 
-async function auth(email) {
-    const [data] = await pool.query('SELECT email FROM dados WHERE email = ?', [email]);
+async function auth(email, senha) {
+    const [data] = await pool.query('SELECT nome, sexo, email, senha FROM dados WHERE email = ? and senha = ?', [email, senha]);
     return data.length > 0 ? data : null;
 }
 

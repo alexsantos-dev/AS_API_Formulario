@@ -30,8 +30,8 @@ async function getFormById(req, res) {
 
 async function auth(req, res) {
     try {
-        const { email } = req.body;
-        const form = await FormModel.auth(email);
+        const { email, senha } = req.body;
+        const form = await FormModel.auth(email, senha);
         if (form) {
             res.json(form);
         }

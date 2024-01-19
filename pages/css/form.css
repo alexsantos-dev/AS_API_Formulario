@@ -1,0 +1,91 @@
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvb;
+    width: 100%;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Rótulos e Entradas de Texto */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Botão de Envio */
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Mensagens de Erro */
+input:invalid,
+select:invalid {
+    border-color: #e53935;
+}
+
+/* Estilo para a caixa de mensagem de alerta */
+.alert {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+/* Estilo para o formato do telefone */
+input[type="tel"] {
+    font-family: monospace;
+}
+
+/* Responsividade */
+@media only screen and (max-width: 600px) {
+    form {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+
+    input,
+    select {
+        margin-bottom: 10px;
+    }
+}

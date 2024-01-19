@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/form.css" />
     <title>Formulário</title>
   </head>
   <body>
-    <h2>Formulário</h2>
-
     <form id="meuFormulario">
       <label for="nome">Nome:</label>
       <input type="text" id="nome" name="nome" required /><br />
@@ -98,6 +97,13 @@
           event.preventDefault();
 
           const formData = new FormData(event.target);
+          const nome = formData.get("nome");
+          const sexo = formData.get("sexo");
+
+          const mensagemBoasVindas =
+            sexo === "M"
+              ? `Seja bem-vindo, ${nome}!`
+              : `Seja bem-vinda, ${nome}!`;
 
           fetch("http://localhost:3000/api/forms", {
             method: "POST",
@@ -109,8 +115,12 @@
             .then((response) => response.text())
             .then((data) => {
               console.log(data);
-            })
 
+              const redirectUrl = `boas_vindas.html?nome=${encodeURIComponent(
+                nome
+              )}&sexo=${encodeURIComponent(sexo)}`;
+              window.location.href = redirectUrl;
+            })
             .catch((error) => {
               console.error(error);
               throw error;

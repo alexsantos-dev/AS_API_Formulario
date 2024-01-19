@@ -12,7 +12,7 @@ async function conectDatabase() {
         connection.release();
         return true;
     }
-    catch (err) {
+    catch (error) {
         if (err.code === "PROTOCOL_CONNECTION_LOST") {
             console.error('A conexão com o banco de dados foi perdida.');
         }
@@ -23,7 +23,7 @@ async function conectDatabase() {
         } else {
             console.error('Erro ao conectar no banco de dados:', err.message);
         }
-        throw err;
+        throw error;
     }
 }
 
