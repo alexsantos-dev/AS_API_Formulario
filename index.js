@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000
 async function api() {
     const accessUrl = async () => {
         try {
-            await axios.get('https://auth-user-api.onrender.com');
+            await axios.get('https://auth-user-api.onrender.com/api/forms');
         } catch (error) {
             console.error(error.message);
             setInterval(accessUrl, 5000);
