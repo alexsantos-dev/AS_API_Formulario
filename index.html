@@ -20,7 +20,8 @@
         required
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       /><br />
-
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required /><br />
       <label for="telefone">Telefone:</label>
       <input
         type="tel"
@@ -28,7 +29,6 @@
         name="telefone"
         required
         pattern="\(\d{2}\) \d{5}-\d{4}"
-        title="Formato esperado: (xx) xxxxx-xxxx"
         oninput="formatarTelefone(this)"
       /><br />
 
@@ -39,6 +39,7 @@
         name="nascimento"
         pattern="\d{4}-\d{2}-\d{2}"
         required
+        oninput="validarAnoNascimento(this)"
       /><br />
 
       <label for="sexo">Sexo:</label>
@@ -77,6 +78,20 @@
             event.preventDefault();
           }
         });
+
+      function validarAnoNascimento(input) {
+        const dataNascimento = new Date(input.value);
+        const anoMin = 1924;
+        const anoMax = 2006;
+        if (dataNascimento.getFullYear() > anoMax) {
+          alert("Você precisa ser maior de idade para validar seu cadastro!");
+          input.value = "";
+        } else if (dataNascimento.getFullYear() < anoMin) {
+          alert("Insira um valor igual ou superior a 1924");
+          input.value = "";
+        }
+      }
+
       document
         .getElementById("meuFormulario")
         .addEventListener("submit", function (event) {

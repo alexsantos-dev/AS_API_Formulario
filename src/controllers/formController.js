@@ -28,10 +28,27 @@ async function getFormById(req, res) {
     }
 }
 
+async function auth(req, res) {
+    try {
+        const { email } = req.body;
+        const form = await FormModel.auth(email);
+        if (form) {
+            res.json(form);
+        }
+        else {
+            res.status(404).json({ error: "Formulario nao encontrado" });
+        }
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+}
+
 async function createForm(req, res) {
     try {
-        const { nome, email, telefone, nascimento, sexo } = req.body;
-        await FormModel.createForm(nome, email, telefone, nascimento, sexo);
+        const { nome, email, senha, telefone, nascimento, sexo } = req.body;
+        await FormModel.createForm(nome, email, senha, telefone, nascimento, sexo);
         res.send("Formulario criado com sucesso!");
     }
     catch (err) {
@@ -43,8 +60,8 @@ async function createForm(req, res) {
 async function updateForm(req, res) {
     try {
         const { id } = req.params
-        const { nome, email, telefone, nascimento, sexo } = req.body;
-        await FormModel.updateForm(nome, email, telefone, nascimento, sexo, id);
+        const { nome, email, senha, telefone, nascimento, sexo } = req.body;
+        await FormModel.updateForm(nome, email, senha, telefone, nascimento, sexo, id);
         res.send("Formulario atualizado!");
     }
     catch (err) {
@@ -66,5 +83,5 @@ async function deleteForm(req, res) {
 }
 
 export default {
-    getAllForms, getFormById, createForm, updateForm, deleteForm
+    getAllForms, getFormById, auth, createForm, updateForm, deleteForm
 }

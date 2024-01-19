@@ -10,12 +10,18 @@ async function getFormById(id) {
     return data;
 }
 
-async function createForm(nome, email, telefone, nascimento, sexo) {
-    await pool.query('INSERT INTO dados (nome, email, telefone, nascimento, sexo ) values (?, ?, ?, ?, ?)', [nome, email, telefone, nascimento, sexo]);
+async function auth(email) {
+    const [data] = await pool.query('SELECT email FROM dados WHERE email = ?', [email]);
+    return data.length > 0 ? data : null;
 }
 
-async function updateForm(id, nome, email, telefone, nascimento, sexo) {
-    await pool.query("UPDATE dados set nome = ?, email = ?, telefone = ?, nascimento = ?, sexo = ?  WHERE id = ?", [id, nome, email, telefone, nascimento, sexo]);
+
+async function createForm(nome, email, senha, telefone, nascimento, sexo) {
+    await pool.query('INSERT INTO dados (nome, email, senha, telefone, nascimento, sexo ) values (?, ?, ?, ?, ?, ?)', [nome, email, senha, telefone, nascimento, sexo]);
+}
+
+async function updateForm(id, nome, email, senha, telefone, nascimento, sexo) {
+    await pool.query("UPDATE dados set nome = ?, email = ?, senha = ?, telefone = ?, nascimento = ?, sexo = ?  WHERE id = ?", [id, nome, email, senha, telefone, nascimento, sexo]);
 }
 
 async function deleteForm(id) {
@@ -25,6 +31,7 @@ async function deleteForm(id) {
 export default {
     getAllForms,
     getFormById,
+    auth,
     createForm,
     updateForm,
     deleteForm
