@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000
 conectDatabase();
 app.use(express.json());
 app.use("/api", FormRoutes);
-configureCors();
+configureCors(app);
 
 async function api() {
     const accessUrl = async () => {

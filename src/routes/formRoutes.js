@@ -1,6 +1,5 @@
 import FormController from "../controllers/formController.js";
 import express from "express";
-import cors from "cors";
 
 const router = express.Router();
 
