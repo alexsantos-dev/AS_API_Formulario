@@ -74,7 +74,7 @@ async function createForm(req, res) {
     try {
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
         await FormModel.createForm(nome, email, senha, telefone, nascimento, sexo);
-        res.send("Formulario criado com sucesso!");
+        res.status(201).json({ message: "Formulario criado com sucesso!" });
     }
     catch (err) {
         console.error(err);
@@ -87,7 +87,7 @@ async function updateForm(req, res) {
         const { id } = req.params
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
         await FormModel.updateForm(nome, email, senha, telefone, nascimento, sexo, id);
-        res.send("Formulario atualizado!");
+        res.status(204).json({ message: "Formulario atualizado!" });
     }
     catch (err) {
         console.error(err);
@@ -99,7 +99,7 @@ async function deleteForm(req, res) {
     try {
         const { id } = req.params;
         await FormModel.deleteForm(id);
-        res.send("Formulario deletado!")
+        res.status(204).json({ message: "Formulario deletado!" });
     }
     catch (err) {
         console.error(err);
