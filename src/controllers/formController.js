@@ -73,7 +73,7 @@ async function createForm(req, res) {
     try {
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
         await FormModel.createForm(nome, email, senha, telefone, nascimento, sexo);
-        res.status(201).json({ message: "Formulario criado com sucesso!" });
+        res.status(201).end();
     }
     catch (err) {
         console.error(err);
