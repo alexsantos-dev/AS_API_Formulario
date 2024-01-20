@@ -16,12 +16,12 @@ async function auth(email, senha) {
 }
 
 async function getUserByEmail(email) {
-    const [data] = pool.query('SELECT email FROM dados WHERE email = ?', [email]);
+    const [data] = await pool.query('SELECT email FROM dados WHERE email = ?', [email]);
     return data.length > 0 ? data : null;
 }
 
-async function updatePasswordByEmail(email, newPassword) {
-    await pool.query("UPDATE dados SET senha = ? WHERE email = ?", [newPassword, email]);
+async function updatePasswordByEmail(email, confirmPassword) {
+    await pool.query("UPDATE dados SET senha = ? WHERE email = ?", [confirmPassword, email]);
 }
 
 async function createForm(nome, email, senha, telefone, nascimento, sexo) {

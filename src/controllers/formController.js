@@ -51,16 +51,16 @@ async function resetPassword(req, res) {
 
         const { email, newPassword, confirmPassword } = req.body;
         const user = await FormModel.getUserByEmail(email);
-
         if (!user) {
             return res.status(400).json({ error: 'Email não encontrado' });
         }
 
         if (newPassword !== confirmPassword) {
-            return res.status(400).send({ error: 'As senhas não coincidem' });
+            return res.status(400).send({ error: `As senhas não coincidem` });
         }
 
-        await formModel.updatePasswordByEmail(email, newPassword);
+
+        await FormModel.updatePasswordByEmail(email, confirmPassword);
         res.send("Senha atualizada com sucesso!");
     }
     catch (err) {
