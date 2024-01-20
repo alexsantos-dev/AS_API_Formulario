@@ -13,15 +13,15 @@ async function conectDatabase() {
         return true;
     }
     catch (error) {
-        if (err.code === "PROTOCOL_CONNECTION_LOST") {
+        if (error.code === "PROTOCOL_CONNECTION_LOST") {
             console.error('A conexão com o banco de dados foi perdida.');
         }
-        else if (err.code === 'ER_CON_COUNT_err') {
+        else if (error.code === 'ER_CON_COUNT_err') {
             console.error('O banco de dados tem muitas conexões.');
-        } else if (err.code === 'ECONNREFUSED') {
+        } else if (error.code === 'ECONNREFUSED') {
             console.error('A conexão com o banco de dados foi recusada.');
         } else {
-            console.error('Erro ao conectar no banco de dados:', err.message);
+            console.error('Erro ao conectar no banco de dados:', error.message);
         }
         throw error;
     }
