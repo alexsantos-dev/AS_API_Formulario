@@ -1,10 +1,9 @@
-import formModel from "../models/formModel.js";
 import FormModel from "../models/formModel.js";
 
 async function getAllForms(req, res) {
     try {
         const forms = await FormModel.getAllForms();
-        res.json(forms);
+        res.status(200).json(forms);
     }
     catch (err) {
         console.error(err);
@@ -17,7 +16,7 @@ async function getFormById(req, res) {
         const { id } = req.params;
         const form = await FormModel.getFormById(id);
         if (form) {
-            res.json(form);
+            res.status(200).json(form);
         }
         else {
             res.status(404).json({ error: "Formulario nao encontrado" });
@@ -87,7 +86,7 @@ async function updateForm(req, res) {
         const { id } = req.params
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
         await FormModel.updateForm(nome, email, senha, telefone, nascimento, sexo, id);
-        res.status(204).json({ message: "Formulario atualizado!" });
+        res.status(204).end();
     }
     catch (err) {
         console.error(err);
@@ -99,7 +98,7 @@ async function deleteForm(req, res) {
     try {
         const { id } = req.params;
         await FormModel.deleteForm(id);
-        res.status(204).json({ message: "Formulario deletado!" });
+        res.status(204).end();
     }
     catch (err) {
         console.error(err);
