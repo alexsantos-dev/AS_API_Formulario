@@ -25,7 +25,7 @@ async function api() {
         }
     };
 
-    setInterval(accessUrl, 60000);
+    setInterval(accessUrl, 120000);
 
 
     await new Promise(() => { });
