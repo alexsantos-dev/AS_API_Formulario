@@ -1,3 +1,4 @@
+import formModel from "../models/formModel.js";
 import FormModel from "../models/formModel.js";
 
 async function getAllForms(req, res) {
@@ -45,6 +46,30 @@ async function auth(req, res) {
     }
 }
 
+async function resetPassword(req, res) {
+    try {
+
+        const { email, newPassword, confirmPassword } = req.body;
+        const user = await FormModel.getUserByEmail(email);
+
+        if (!user) {
+            return res.status(400).json({ error: 'Email não encontrado' });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).send({ error: 'As senhas não coincidem' });
+        }
+
+        await formModel.updatePasswordByEmail(email, newPassword);
+        res.send("Senha atualizada com sucesso!");
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erro ao redefinir a senha' });
+
+    }
+}
+
 async function createForm(req, res) {
     try {
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
@@ -83,5 +108,5 @@ async function deleteForm(req, res) {
 }
 
 export default {
-    getAllForms, getFormById, auth, createForm, updateForm, deleteForm
+    getAllForms, getFormById, auth, resetPassword, createForm, updateForm, deleteForm
 }

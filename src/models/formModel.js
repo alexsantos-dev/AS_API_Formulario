@@ -15,6 +15,14 @@ async function auth(email, senha) {
     return data.length > 0 ? data : null;
 }
 
+async function getUserByEmail(email) {
+    const [data] = pool.query('SELECT email FROM dados WHERE email = ?', [email]);
+    return data.length > 0 ? data : null;
+}
+
+async function updatePasswordByEmail(email, newPassword) {
+    await pool.query("UPDATE dados SET senha = ? WHERE email = ?", [newPassword, email]);
+}
 
 async function createForm(nome, email, senha, telefone, nascimento, sexo) {
     await pool.query('INSERT INTO dados (nome, email, senha, telefone, nascimento, sexo ) values (?, ?, ?, ?, ?, ?)', [nome, email, senha, telefone, nascimento, sexo]);
@@ -32,6 +40,8 @@ export default {
     getAllForms,
     getFormById,
     auth,
+    getUserByEmail,
+    updatePasswordByEmail,
     createForm,
     updateForm,
     deleteForm
