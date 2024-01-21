@@ -8,9 +8,9 @@ import axios from "axios";
 dotenv.config();
 
 const app = express();
-configureCors(app);
-const PORT = process.env.PORT || 3300
+const PORT = process.env.PORT || 3000;
 
+configureCors(app);
 conectDatabase();
 app.use(express.json());
 app.use("/api", FormRoutes);
@@ -27,7 +27,6 @@ async function api() {
 
     setInterval(accessUrl, 120000);
 
-
     await new Promise(() => { });
 }
 
@@ -35,7 +34,7 @@ api();
 
 app.listen(PORT, () => {
     console.log('Conexão bem sucedida! ✅');
-    console.log(`Servidor ativo em: http://localhost:${PORT} 📎`);
+    console.log(`Servidor ativo em: http://localhost:${PORT}📎`);
 });
 
-
+export default app;
