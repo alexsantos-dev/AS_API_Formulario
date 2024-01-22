@@ -15,7 +15,7 @@ async function getFormById(req, res) {
     try {
         const { id } = req.params;
         const form = await FormModel.getFormById(id);
-        if (form) {
+        if (form.length > 0) {
             res.status(200).json(form);
         }
         else {
@@ -73,7 +73,12 @@ async function createForm(req, res) {
     try {
         const { nome, email, senha, telefone, nascimento, sexo } = req.body;
         await FormModel.createForm(nome, email, senha, telefone, nascimento, sexo);
-        res.status(201).end();
+        if (nome && email && senha && telefone && nascimento && sexo) {
+            res.status(201).end();
+        }
+        else {
+            res.status(409).json({ error: "envie todos os campos" });
+        }
     }
     catch (err) {
         console.error(err);

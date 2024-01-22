@@ -15,6 +15,11 @@ async function auth(email, senha) {
     return data.length > 0 ? data : null;
 }
 
+async function authID(id) {
+    const [data] = await pool.query('SELECT id FROM dados WHERE id = ?', [id])
+    return data.length > 0 ? data : null;
+}
+
 async function getUserByEmail(email) {
     const [data] = await pool.query('SELECT email FROM dados WHERE email = ?', [email]);
     return data.length > 0 ? data : null;
@@ -40,6 +45,7 @@ export default {
     getAllForms,
     getFormById,
     auth,
+    authID,
     getUserByEmail,
     updatePasswordByEmail,
     createForm,
